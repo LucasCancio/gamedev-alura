@@ -23,16 +23,25 @@ class Personagem {
   }
 
   exibe() {
+    let playerWidth = 110;
+    let playerHeight = 135;
+    let xInCanvas = 0;
+    let yInCanvas = height - playerHeight;
+    let xInSprite = this.matriz[this.frameAtual][0];
+    let yInSprite = this.matriz[this.frameAtual][1];
+    let widthInSprite = 220;
+    let heightInSprite = 270;
+
     image(
       this.imagem,
-      0,
-      height - 135,
-      110,
-      135,
-      this.matriz[this.frameAtual][0],
-      this.matriz[this.frameAtual][1],
-      220,
-      270
+      xInCanvas,
+      yInCanvas,
+      playerWidth,
+      playerHeight,
+      xInSprite,
+      yInSprite,
+      widthInSprite,
+      heightInSprite
     );
 
     this.anima();
