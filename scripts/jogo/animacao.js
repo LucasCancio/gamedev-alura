@@ -4,7 +4,7 @@ class Animacao {
     this.totalFrames=qtdeLinhas * framesPorLinha;
     this.imagem = imagem;
     this.x = x;
-    this.y = height;
+    this.y = height - altura;
     this.largura = largura;
     this.altura = altura;
     this.larguraSprite = larguraSprite;
@@ -14,7 +14,7 @@ class Animacao {
   }
 
   exibe() {
-    let [xInSprite, yInSprite] = this.pegarCordenadasEmFrame(this.frameAtual);
+    let [xInSprite, yInSprite] = this.pegarCordenadasPeloFrame(this.frameAtual);
 
     image(
       this.imagem,

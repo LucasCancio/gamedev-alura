@@ -41,8 +41,8 @@ class Personagem extends Animacao {
   }
 
   estaColidindo(inimigo) {
-    rect(this.x, this.y, this.largura, this.altura);
-    rect(inimigo.x, inimigo.y, inimigo.largura, inimigo.altura);
+   /*  rect(this.x, this.y, this.largura, this.altura);
+    rect(inimigo.x, inimigo.y, inimigo.largura, inimigo.altura); */
 
     const precisao= .7;
 
