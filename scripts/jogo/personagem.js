@@ -1,56 +1,52 @@
+const framesPorLinha = 4;
+const totalFrames = framesPorLinha * 4;//stylesheet com 4 linhas
+
 class Personagem {
-  constructor(imagem) {
+  constructor(imagem, width, height) {
     this.imagem = imagem;
-    this.matriz = [
-      [0, 0],
-      [220, 0],
-      [440, 0],
-      [660, 0],
-      [0, 270],
-      [220, 270],
-      [440, 270],
-      [660, 270],
-      [0, 540],
-      [220, 540],
-      [440, 540],
-      [660, 540],
-      [0, 810],
-      [220, 810],
-      [440, 810],
-      [660, 810],
-    ];
     this.frameAtual = 0;
+    this.widthNaSprite = 220;
+    this.heightNaSprite = 270;
+
+    this.width = width;
+    this.height = height;
   }
 
   exibe() {
-    let playerWidth = 110;
-    let playerHeight = 135;
     let xInCanvas = 0;
-    let yInCanvas = height - playerHeight;
-    let xInSprite = this.matriz[this.frameAtual][0];
-    let yInSprite = this.matriz[this.frameAtual][1];
-    let widthInSprite = 220;
-    let heightInSprite = 270;
+    let yInCanvas = height - this.height;
+    let [xInSprite, yInSprite] = this.pegarCordenadasEmFrame(this.frameAtual);
 
     image(
       this.imagem,
       xInCanvas,
       yInCanvas,
-      playerWidth,
-      playerHeight,
+      this.width,
+      this.height,
       xInSprite,
       yInSprite,
-      widthInSprite,
-      heightInSprite
+      this.widthNaSprite,
+      this.heightNaSprite
     );
 
     this.anima();
   }
 
+  pegarCordenadasEmFrame(frame) {
+    let linhaDoFrame = Math.floor(frame / framesPorLinha);
+    let x =
+      this.widthNaSprite *
+      (frame >= framesPorLinha ? frame % framesPorLinha : frame);
+
+    let y = this.heightNaSprite * linhaDoFrame;
+
+    return [x, y];
+  }
+
   anima() {
     this.frameAtual++;
 
-    if (this.frameAtual >= this.matriz.length - 1) {
+    if (this.frameAtual >= totalFrames - 1) {
       this.frameAtual = 0;
     }
   }
