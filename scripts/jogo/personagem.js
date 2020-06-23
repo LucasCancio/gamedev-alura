@@ -1,53 +1,62 @@
-const framesPorLinha = 4;
-const totalFrames = framesPorLinha * 4;//stylesheet com 4 linhas
-
-class Personagem {
-  constructor(imagem, width, height) {
-    this.imagem = imagem;
-    this.frameAtual = 0;
-    this.widthNaSprite = 220;
-    this.heightNaSprite = 270;
-
-    this.width = width;
-    this.height = height;
-  }
-
-  exibe() {
-    let xInCanvas = 0;
-    let yInCanvas = height - this.height;
-    let [xInSprite, yInSprite] = this.pegarCordenadasEmFrame(this.frameAtual);
-
-    image(
-      this.imagem,
-      xInCanvas,
-      yInCanvas,
-      this.width,
-      this.height,
-      xInSprite,
-      yInSprite,
-      this.widthNaSprite,
-      this.heightNaSprite
+class Personagem extends Animacao {
+  constructor(
+    framesPorLinha,
+    qtdeLinhas,
+    imagem,
+    x,
+    largura,
+    altura,
+    larguraSprite,
+    alturaSprite
+  ) {
+    super(
+      framesPorLinha,
+      qtdeLinhas,
+      imagem,
+      x,
+      largura,
+      altura,
+      larguraSprite,
+      alturaSprite
     );
 
-    this.anima();
+    this.yInicial = height - this.altura;
+    this.y = this.yInicial;
+    this.velocidadeDoPulo = 0;
+    this.gravidade = 3;
   }
 
-  pegarCordenadasEmFrame(frame) {
-    let linhaDoFrame = Math.floor(frame / framesPorLinha);
-    let x =
-      this.widthNaSprite *
-      (frame >= framesPorLinha ? frame % framesPorLinha : frame);
-
-    let y = this.heightNaSprite * linhaDoFrame;
-
-    return [x, y];
+  pula() {
+    this.velocidadeDoPulo = -50;
   }
 
-  anima() {
-    this.frameAtual++;
+  aplicaGravidade() {
+    this.y += this.velocidadeDoPulo;
+    this.velocidadeDoPulo += this.gravidade;
 
-    if (this.frameAtual >= totalFrames - 1) {
-      this.frameAtual = 0;
+    const alcancouChao = this.y > this.yInicial;
+    if (alcancouChao) {
+      this.y = this.yInicial;
     }
+  }
+
+  estaColidindo(inimigo) {
+    rect(this.x, this.y, this.largura, this.altura);
+    rect(inimigo.x, inimigo.y, inimigo.largura, inimigo.altura);
+
+    const precisao= .7;
+
+    const colisao = collideRectRect(
+      this.x,
+      this.y,
+      this.largura * precisao,
+      this.altura * precisao,
+      inimigo.x,
+      inimigo.y,
+      inimigo.largura * precisao,
+      inimigo.altura * precisao
+    );
+
+    return colisao;
   }
 }
