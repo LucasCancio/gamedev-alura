@@ -25,13 +25,13 @@ function setup() {
   somDoJogo.loop();
   personagem = new Personagem(4, 4, imagemPersonagem, 0, 110, 135, 220, 270);
 
-  inimigo = new Inimigo(4, 7, imagemInimigo, width - 52,52, 52, 104, 104);
+  inimigo = new Inimigo(4, 7, imagemInimigo, width - 52, 52, 52, 104, 104);
   frameRate(fps);
 }
 
-function keyPressed(){
-  if(key==='ArrowUp'){
-    personagem.pula()
+function keyPressed() {
+  if (key === "ArrowUp") {
+    personagem.pula();
     //somDoPulo.play();
   }
 }
@@ -47,8 +47,13 @@ function draw() {
   inimigo.exibe();
   inimigo.move();
 
-  if(personagem.estaColidindo(inimigo)){
-    console.log('Colidiu')
-    noLoop();
+  if (personagem.estaColidindo(inimigo)) {
+    finalizarJogo();
   }
+}
+
+function finalizarJogo() {
+  console.log("Colidiu");
+  noLoop();
+  somDoJogo.stop();
 }

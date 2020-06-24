@@ -1,3 +1,5 @@
+const puloInicial = 0;
+
 class Personagem extends Animacao {
   constructor(
     framesPorLinha,
@@ -24,27 +26,31 @@ class Personagem extends Animacao {
     this.y = this.yInicial;
     this.velocidadeDoPulo = 0;
     this.gravidade = 3;
+
+    this.qtdePulos = 2;
+    this.puloAtual = puloInicial;
   }
 
   pula() {
-    this.velocidadeDoPulo = -50;
+    if (this.verificarSeEstaNoChao()) this.puloAtual = puloInicial;
+
+    if (this.puloAtual < this.qtdePulos) {
+      this.velocidadeDoPulo = -35;
+      this.puloAtual++;
+    }
   }
 
   aplicaGravidade() {
     this.y += this.velocidadeDoPulo;
     this.velocidadeDoPulo += this.gravidade;
 
-    const alcancouChao = this.y > this.yInicial;
-    if (alcancouChao) {
+    if (this.verificarSeEstaNoChao()) {
       this.y = this.yInicial;
     }
   }
 
   estaColidindo(inimigo) {
-   /*  rect(this.x, this.y, this.largura, this.altura);
-    rect(inimigo.x, inimigo.y, inimigo.largura, inimigo.altura); */
-
-    const precisao= .7;
+    const precisao = 0.7;
 
     const colisao = collideRectRect(
       this.x,
@@ -58,5 +64,9 @@ class Personagem extends Animacao {
     );
 
     return colisao;
+  }
+
+  verificarSeEstaNoChao() {
+    return this.y >= this.yInicial;
   }
 }
