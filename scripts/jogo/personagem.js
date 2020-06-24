@@ -22,7 +22,8 @@ class Personagem extends Animacao {
       alturaSprite
     );
 
-    this.yInicial = height - this.altura;
+    console.log(height);
+    this.yInicial = height - this.altura - 0.13 * height;
     this.y = this.yInicial;
     this.velocidadeDoPulo = 0;
     this.gravidade = 3;
@@ -31,10 +32,11 @@ class Personagem extends Animacao {
     this.puloAtual = puloInicial;
   }
 
-  pula() {
+  pula(somDoPulo) {
     if (this.verificarSeEstaNoChao()) this.puloAtual = puloInicial;
 
     if (this.puloAtual < this.qtdePulos) {
+      somDoPulo.play();
       this.velocidadeDoPulo = -35;
       this.puloAtual++;
     }
@@ -50,15 +52,27 @@ class Personagem extends Animacao {
   }
 
   estaColidindo(inimigo) {
-    const precisao = 0.7;
+    const precisao = 0.88;
+    /* ellipse(
+      this.x + this.largura / 2,
+      this.y + this.altura / 2,
+      this.largura * precisao,
+      this.altura * precisao
+    );
+    ellipse(
+      inimigo.x + inimigo.largura / 2,
+      inimigo.y + inimigo.altura / 2,
+      inimigo.largura * precisao,
+      inimigo.altura * precisao
+    ); */
 
-    const colisao = collideRectRect(
-      this.x,
-      this.y,
+    const colisao = collideCircleCircle(
+      this.x + this.largura / 2,
+      this.y + this.altura / 2,
       this.largura * precisao,
       this.altura * precisao,
-      inimigo.x,
-      inimigo.y,
+      inimigo.x + inimigo.largura / 2,
+      inimigo.y + inimigo.altura / 2,
       inimigo.largura * precisao,
       inimigo.altura * precisao
     );

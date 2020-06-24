@@ -4,7 +4,7 @@ class Animacao {
     this.totalFrames=qtdeLinhas * framesPorLinha;
     this.imagem = imagem;
     this.x = x;
-    this.y = height - altura;
+    this.y = height - altura - 0.13 * height;
     this.largura = largura;
     this.altura = altura;
     this.larguraSprite = larguraSprite;
