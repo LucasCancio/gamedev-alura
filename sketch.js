@@ -1,6 +1,8 @@
 let imagemCenario;
 let imagemPersonagem;
 let imagemInimigo;
+let imagemInimigoGrande;
+let imagemInimigoVoador;
 let imagemGameOver;
 let imagemNuvens;
 
@@ -12,6 +14,11 @@ let nuvens;
 let somDoJogo;
 let personagem;
 let inimigo;
+let inimigoGrande;
+let inimigoVoador;
+let pontuacao;
+
+const inimigos = [];
 
 const fps = 40;
 
@@ -22,6 +29,9 @@ function preload() {
   imagemCenario = loadImage("./imagens/cenario/mario-background.jpg");
   imagemPersonagem = loadImage("./imagens/personagem/correndo.png");
   imagemInimigo = loadImage("./imagens/inimigos/gotinha.png");
+  inimigoVoador = loadImage("./imagens/inimigos/gotinha-voadora.png");
+  imagemInimigoGrande = loadImage("./imagens/inimigos/troll.png");
+
   somDoJogo = loadSound("./sons/supermario-trilha.mp3");
   somDoPulo = loadSound("./sons/jump.mp3");
   imagemGameOver = new Imagem("./imagens/assets/game-over.png", 412, 78);
@@ -39,20 +49,67 @@ function setup() {
   gameOverSom.setVolume(0.05);
   somDoJogo.setVolume(0.15);
   //somDoJogo.loop();
-  personagem = new Personagem(4, 4, imagemPersonagem, 0, 110, 135, 220, 270);
+  personagem = new Personagem(
+    4,
+    4,
+    imagemPersonagem,
+    0,
+    0.13 * height,
+    110,
+    135,
+    220,
+    270
+  );
 
-  inimigo = new Inimigo(4, 7, imagemInimigo, width - 52, 52, 52, 104, 104);
+  const inimigo = new Inimigo(
+    4,
+    7,
+    imagemInimigo,
+    width - 52,
+    0.13 * height,
+    52,
+    52,
+    104,
+    104,
+    10,
+    100
+  );
 
-  let matriz = [];
-  for (let index = 0; index <= 4 * 7; index++) {
-    matriz.push(inimigo.pegarCordenadasPeloFrame(index));
-  }
-  console.table(matriz);
+  const inimigoGrande = new Inimigo(
+    5,
+    6,
+    imagemInimigoGrande,
+    width - 52,
+    0.13 * height,
+    200,
+    200,
+    400,
+    400,
+    10,
+    1500
+  );
+
+  const inimigoVoador = new Inimigo(
+    3,
+    6,
+    imagemInimigoVoador,
+    width - 52,
+    0.13 * height,
+    75,
+    200,
+    150,
+    10,
+    2500
+  );
+
+  inimigos.push(inimigo, inimigoGrande, inimigoVoador);
 
   frameRate(fps);
 
   larguraCentro = width / 2;
   alturaCentro = height / 2;
+
+  pontuacao = new Pontuacao();
 }
 
 function keyPressed() {
@@ -61,11 +118,13 @@ function keyPressed() {
   }
 }
 
+//Essa função é funciona como um while true
 function draw() {
-  //while (true)
   cenario.exibe();
   cenario.move();
 
+  pontuacao.exibe();
+  
   nuvens.exibe();
   nuvens.move();
 
@@ -73,11 +132,16 @@ function draw() {
   personagem.aplicaGravidade();
 
   inimigo.exibe();
-  //inimigo.move();
+  inimigo.move();
 
-  if (personagem.estaColidindo(inimigo)) {
-    finalizarJogo();
-  }
+  inimigos.forEach((inimigo) => {
+    inimigo.exibe();
+    inimigo.move();
+
+    if (personagem.estaColidindo(inimigo)) {
+      finalizarJogo();
+    }
+  });
 }
 
 function finalizarJogo() {
