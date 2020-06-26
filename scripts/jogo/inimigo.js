@@ -1,7 +1,6 @@
 class Inimigo extends Animacao {
   constructor(
-    framesPorLinha,
-    qtdeLinhas,
+    matriz,
     imagem,
     x,
     variacaoY,
@@ -13,8 +12,7 @@ class Inimigo extends Animacao {
     delay
   ) {
     super(
-      framesPorLinha,
-      qtdeLinhas,
+      matriz,
       imagem,
       x,
       variacaoY,
@@ -25,8 +23,8 @@ class Inimigo extends Animacao {
     );
 
     this.velocidade = velocidade;
-    this.delay=delay;
-    this.x= width + this.delay;
+    this.delay = delay;
+    this.x = width + this.delay;
   }
 
   move() {

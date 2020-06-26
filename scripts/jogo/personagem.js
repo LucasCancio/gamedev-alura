@@ -2,8 +2,7 @@ const puloInicial = 0;
 
 class Personagem extends Animacao {
   constructor(
-    framesPorLinha,
-    qtdeLinhas,
+    matriz,
     imagem,
     x,
     variacaoY,
@@ -13,8 +12,7 @@ class Personagem extends Animacao {
     alturaSprite
   ) {
     super(
-      framesPorLinha,
-      qtdeLinhas,
+      matriz,
       imagem,
       x,
       variacaoY,
