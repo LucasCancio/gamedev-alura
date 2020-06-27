@@ -1,4 +1,8 @@
-class TelaInicial { 
+class TelaInicial {
+  constructor(){
+  
+  }
+  
   draw(){
     this._imagemDeFundo();
     this._texto();

@@ -1,74 +1,59 @@
-const puloInicial = 0;
-
 class Personagem extends Animacao {
-  constructor(
-    matriz,
-    imagem,
-    x,
-    variacaoY,
-    largura,
-    altura,
-    larguraSprite,
-    alturaSprite
-  ) {
-    super(
-      matriz,
-      imagem,
-      x,
-      variacaoY,
-      largura,
-      altura,
-      larguraSprite,
-      alturaSprite
-    );
-
-    console.log(height);
+  constructor(matriz, imagem, x, variacaoY, largura, altura, larguraSprite, alturaSprite){
+    super(matriz, imagem, x, variacaoY, largura, altura, larguraSprite, alturaSprite);
+    this.variacaoY = variacaoY;
     this.yInicial = height - this.altura - this.variacaoY;
     this.y = this.yInicial;
+    
     this.velocidadeDoPulo = 0;
     this.gravidade = 6;
-
-    this.qtdePulos = 2;
-    this.puloAtual = puloInicial;
-    this.alturaDoPulo = -50;
+    this.alturaDoPulo = -50
+    this.pulos = 0
+    this.invencivel = false
   }
-
-  pula(somDoPulo) {
-    if (this.verificarSeEstaNoChao()) this.puloAtual = puloInicial;
-
-    if (this.puloAtual < this.qtdePulos) {
-      somDoPulo.play();
-      this.velocidadeDoPulo = this.alturaDoPulo;
-      this.puloAtual++;
+  
+  pula() {
+    if(this.pulos < 2) {
+      this.velocidadeDoPulo = this.alturaDoPulo
+      this.pulos++
     }
   }
-
+  
   aplicaGravidade() {
-    this.y += this.velocidadeDoPulo;
-    this.velocidadeDoPulo += this.gravidade;
-
-    if (this.verificarSeEstaNoChao()) {
-      this.y = this.yInicial;
+    this.y = this.y + this.velocidadeDoPulo
+    this.velocidadeDoPulo = this.velocidadeDoPulo + this.gravidade
+    
+    if(this.y > this.yInicial){
+      this.y = this.yInicial
+      this.pulos = 0
     }
   }
-
+  
+  tornarInvencivel() {
+    this.invencivel = true
+    setTimeout(() => {
+      this.invencivel = false
+    }, 1000)
+  }
+  
   estaColidindo(inimigo) {
-    const precisao = 0.88;
-    const colisao = collideCircleCircle(
-      this.x + this.largura / 2,
-      this.y + this.altura / 2,
-      this.largura * precisao,
+    if(this.invencivel) {
+      return false
+    }
+    
+    const precisao = .7
+    const colisao = collideRectRect(
+      this.x, 
+      this.y, 
+      this.largura * precisao, 
       this.altura * precisao,
-      inimigo.x + inimigo.largura / 2,
-      inimigo.y + inimigo.altura / 2,
+      inimigo.x,
+      inimigo.y,
       inimigo.largura * precisao,
       inimigo.altura * precisao
     );
-
+    
     return colisao;
   }
 
-  verificarSeEstaNoChao() {
-    return this.y >= this.yInicial;
-  }
 }
