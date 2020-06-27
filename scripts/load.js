@@ -1,14 +1,25 @@
-function preload() {
-  imagemCenario = loadImage('imagens/cenario/floresta.png');
-  imagemGameOver = loadImage('imagens/assets/game-over.png');
-  imagemPersonagem = loadImage('imagens/personagem/correndo.png');
-  imagemInimigo = loadImage('imagens/inimigos/gotinha.png');
-  imagemInimigoVoador = loadImage('imagens/inimigos/gotinha-voadora.png');
-  imagemInimigoGrande = loadImage('imagens/inimigos/troll.png');
-  imagemTelaInicial = loadImage('imagens/cenario/telaInicial.png');
-  imagemVida = loadImage('imagens/assets/heart.png');
-  fonteTelaInicial = loadFont('imagens/assets/fonteTelaInicial.otf');
-  fita = loadJSON('fita/fita.json')
-  somDoJogo = loadSound('sons/trilha_jogo.mp3');
-  somDoPulo = loadSound('sons/somPulo.mp3');
+function load(p5) {
+  imagemCenario = p5.loadImage("../assets/images/cenarios/floresta.png");
+  imagemGameOver = p5.loadImage("../assets/images/game-over.png");
+  imagemPersonagem = p5.loadImage(
+    "../assets/images/entidades/personagem/correndo.png"
+  );
+  imagemInimigo = p5.loadImage("../assets/images/entidades/inimigos/gotinha.png");
+  imagemInimigoVoador = p5.loadImage(
+    "../assets/images/entidades/inimigos/gotinha-voadora.png"
+  );
+  imagemInimigoGrande = p5.loadImage(
+    "../assets/images/entidades/inimigos/troll.png"
+  );
+  imagemTelaInicial = p5.loadImage("../assets/images/cenarios/menu.png");
+  imagemVida = p5.loadImage("../assets/images/itens/heart.png");
+
+  fonteTelaInicial = p5.loadFont("../assets/fonts/fonteTelaInicial.otf");
+
+  somDoJogo = p5.loadSound("../assets/sounds/trilha_jogo.mp3");
+  somDoPulo = p5.loadSound("../assets/sounds/somPulo.mp3");
+
+  fita = p5.loadJSON("../config/config.json");
 }
+
+export default load;

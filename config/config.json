@@ -1,11 +1,10 @@
-
-
 {
-"configuracoes": {
-  "vidaMaxima": 3,
-  "vidaInicial": 3
-},
-"mapa": [{
+  "configuracoes": {
+    "vidaMaxima": 3,
+    "vidaInicial": 3
+  },
+  "mapa": [
+    {
       "inimigo": 1,
       "velocidade": 10
     },

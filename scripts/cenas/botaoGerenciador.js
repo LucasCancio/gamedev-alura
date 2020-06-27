@@ -1,20 +1,22 @@
-class BotaoGerenciador{
-  constructor(texto, x, y){
+class BotaoGerenciador {
+  constructor(texto, x, y,p5) {
     this.texto = texto;
     this.x = x;
     this.y = y;
-    this.botao = createButton(this.texto)
-    this.botao.mousePressed(() => this._alteraCena())
-    this.botao.addClass('botao-tela-inicial');
+    this.botao = p5.createButton(this.texto);
+    this.botao.mousePressed(() => this._alteraCena());
+    this.botao.addClass("botao-tela-inicial");
   }
-  
-  draw(){
+
+  draw() {
     this.botao.position(this.x, this.y);
-    this.botao.center('horizontal');
+    this.botao.center("horizontal");
   }
-  
-  _alteraCena(){
+
+  _alteraCena() {
     this.botao.remove();
-    cenaAtual = 'jogo';
+    cenaAtual = "jogo";
   }
 }
+
+export default BotaoGerenciador;

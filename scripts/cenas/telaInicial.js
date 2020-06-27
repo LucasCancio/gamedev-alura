@@ -1,29 +1,33 @@
 class TelaInicial {
-  constructor(){
-  
+  constructor(imagemFundo,botao, fonte) {
+    this.botao = botao;
+    this.fonte = fonte;
+    this.imagemFundo = imagemFundo;
   }
-  
-  draw(){
-    this._imagemDeFundo();
-    this._texto();
-    this._botao();
+
+  draw(p5) {
+    this._imagemDeFundo(p5);
+    this._texto(p5);
+    this._botao(p5);
   }
-  
-  _imagemDeFundo(){
-    image(imagemTelaInicial, 0, 0, width, height);
+
+  _imagemDeFundo(p5) {
+    p5.image(this.imagemFundo, 0, 0, p5.width, p5.height);
   }
-  
-  _texto(){
-    textFont(fonteTelaInicial);
-    textAlign(CENTER)
-    textSize(50);
-    text('As aventuras de', width / 2, height / 3);
-    textSize(150);
-    text('Hipsta', width / 2, height / 5 * 3)
+
+  _texto(p5) {
+    p5.textFont(this.fonte);
+    p5.textAlign(p5.CENTER);
+    p5.textSize(50);
+    p5.text("As aventuras de", p5.width / 2, p5.height / 3);
+    p5.textSize(150);
+    p5.text("Hipsta", p5.width / 2, (p5.height / 5) * 3);
   }
-  
-  _botao(){
-    botaoGerenciador.y = height / 7 * 5;
-    botaoGerenciador.draw();
+
+  _botao(p5) {
+    this.botao.y = (p5.height / 7) * 5;
+    this.botao.draw();
   }
 }
+
+export default TelaInicial;

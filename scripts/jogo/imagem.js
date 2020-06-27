@@ -9,3 +9,5 @@ class Imagem {
     image(this.imagem, x, y, this.largura, this.altura);
   }
 }
+
+export default Imagem;
